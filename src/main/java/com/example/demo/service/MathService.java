@@ -60,4 +60,8 @@ public class MathService {
     }
 
 
+    public String calculateVolume(Integer x, Integer y, Integer z) {
+        int volume = x * y *z;
+        return "The volume of a " + x+ "x" + y + "x" + z + " rectangle is " + volume;
+    }
 }

@@ -78,4 +78,20 @@ public class HelloControllerTest {
                 .andExpect(content().string("5 + 10 + 34 = 49"));
     }
 
+    @Test
+    public void testMathVolumeEndpoint_WorksWithPost() throws Exception {
+        when(mathService.calculateVolume(3, 4, 5)).thenReturn("The volume of a 3x4x5 rectangle is 60");
+        this.mvc.perform(post("/math/volume/3/4/5"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("The volume of a 3x4x5 rectangle is 60"));
+    }
+
+    @Test
+    public void testMathVolumeEndpoint_WorksWithGet() throws Exception {
+        when(mathService.calculateVolume(3, 4, 5)).thenReturn("The volume of a 3x4x5 rectangle is 60");
+        this.mvc.perform(get("/math/volume/3/4/5"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("The volume of a 3x4x5 rectangle is 60"));
+    }
+
 }

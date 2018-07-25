@@ -60,4 +60,11 @@ public class MathServiceTest {
 
         assertEquals(result, "5 + 10 + 34 = 49");
     }
+
+    @Test
+    public void testcalculateVolume() {
+        String result = mathService.calculateVolume(3, 4, 5);
+
+        assertEquals(result, "The volume of a 3x4x5 rectangle is 60");
+    }
 }

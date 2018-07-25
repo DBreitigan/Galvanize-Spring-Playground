@@ -2,10 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.service.MathService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,13 +27,20 @@ public class HelloController {
 
     @GetMapping("/math/calculate")
     public String mathCalculations(@RequestParam(defaultValue = "add") String operation,
-                                  @RequestParam int x,
-                                  @RequestParam int y) {
+                                   @RequestParam int x,
+                                   @RequestParam int y) {
         return mathService.calculate(operation, x, y);
     }
 
     @PostMapping("/math/sum")
     public String mathSum(@RequestParam(value = "n") List<Integer> integerList) {
         return mathService.sum(integerList);
+    }
+
+    @RequestMapping("/math/volume/{x}/{y}/{z}")
+    public String mathVolume(@PathVariable Integer x,
+                             @PathVariable Integer y,
+                             @PathVariable Integer z) {
+        return mathService.calculateVolume(x, y, z);
     }
 }
