@@ -1,10 +1,13 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.Shape;
 import com.example.demo.service.MathService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class HelloController {
@@ -42,5 +45,10 @@ public class HelloController {
                              @PathVariable Integer y,
                              @PathVariable Integer z) {
         return mathService.calculateVolume(x, y, z);
+    }
+
+    @RequestMapping(value="/math/area",method=RequestMethod.POST)
+    public String mathArea(@ModelAttribute Shape shape) {
+        return mathService.calculateArea(shape);
     }
 }
