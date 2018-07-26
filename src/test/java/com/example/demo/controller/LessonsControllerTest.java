@@ -18,6 +18,7 @@ import javax.transaction.Transactional;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -59,5 +60,27 @@ public class LessonsControllerTest {
         this.mvc.perform(request)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", instanceOf(Number.class)));
+    }
+
+    @Test
+    @Transactional
+    @Rollback
+    public void testUpdate() throws Exception {
+        Lesson lesson = new Lesson();
+        lesson.setTitle("super sweet title");
+
+        repository.save(lesson);
+
+        long id = lesson.getId();
+
+        MockHttpServletRequestBuilder request = patch("/lessons/{id}", id)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"title\": \"another super sweet title\"}");
+
+        this.mvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", instanceOf(Number.class)))
+                .andExpect(jsonPath("$.title", is("another super sweet title")));
+
     }
 }

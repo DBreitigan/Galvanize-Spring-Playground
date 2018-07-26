@@ -25,13 +25,23 @@ public class LessonsController {
     }
 
     @GetMapping("/{id}")
-    public Lesson get(@PathVariable long id) {
+    public Lesson read(@PathVariable long id) {
         return this.repository.findById(id).get();
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable long id) {
         this.repository.deleteById(id);
+    }
+
+    @PatchMapping("/{id}")
+    public Lesson update(@PathVariable long id,
+                       @RequestBody Lesson lesson) {
+        Lesson orignalLesson = this.repository.findById(id).get();
+        orignalLesson.setTitle(lesson.getTitle());
+        orignalLesson.setDeliveredOn(lesson.getDeliveredOn());
+        this.repository.save(orignalLesson);
+        return orignalLesson;
     }
 
 }
