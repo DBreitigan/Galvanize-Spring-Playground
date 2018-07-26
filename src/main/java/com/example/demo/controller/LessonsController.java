@@ -4,6 +4,9 @@ import com.example.demo.database.LessonRepository;
 import com.example.demo.model.Lesson;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
+import java.util.List;
+
 @RestController
 @RequestMapping("/lessons")
 public class LessonsController {
@@ -42,6 +45,18 @@ public class LessonsController {
         orignalLesson.setDeliveredOn(lesson.getDeliveredOn());
         this.repository.save(orignalLesson);
         return orignalLesson;
+    }
+
+    @GetMapping("/find/{title}")
+    public Lesson findByTitle(@PathVariable String title) {
+        return this.repository.findFirstByTitle(title);
+    }
+
+    @GetMapping("/between")
+    public List<Lesson> findBetweenDates(@RequestParam Date date1,
+                                         @RequestParam Date date2){
+        return this.repository.findAllByDeliveredOnBetween(date1, date2);
+
     }
 
 }

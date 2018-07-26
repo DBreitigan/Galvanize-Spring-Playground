@@ -12,8 +12,10 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.instanceOf;
@@ -65,6 +67,23 @@ public class LessonsControllerTest {
     @Test
     @Transactional
     @Rollback
+    public void testFindByTitle() throws Exception {
+        Lesson lesson = new Lesson();
+        lesson.setTitle("some really weird unique title4");
+
+        repository.save(lesson);
+
+        MockHttpServletRequestBuilder request = get("/lessons/find/{title}", lesson.getTitle());
+
+        this.mvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", instanceOf(Number.class)))
+                .andExpect(jsonPath("$.title", is(lesson.getTitle())));
+    }
+
+    @Test
+    @Transactional
+    @Rollback
     public void testUpdate() throws Exception {
         Lesson lesson = new Lesson();
         lesson.setTitle("super sweet title");
@@ -81,6 +100,29 @@ public class LessonsControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", instanceOf(Number.class)))
                 .andExpect(jsonPath("$.title", is("another super sweet title")));
-
     }
+
+    @Test
+    @Transactional
+    @Rollback
+    public void testbetween() throws Exception {
+        Lesson lesson = new Lesson();
+        lesson.setTitle("super sweet title");
+        lesson.setDeliveredOn(new Date());
+
+        repository.save(lesson);
+
+        Date date1 = new SimpleDateFormat( "yyyyMMdd" ).parse( "20100520" );
+        Date date2 = new SimpleDateFormat( "yyyyMMdd" ).parse( "20200520" );
+        
+        MockHttpServletRequestBuilder request = get("/lessons/between?date1={date1}&date2={date2}", date1, date2)
+                .contentType(MediaType.APPLICATION_JSON);
+
+        this.mvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].id", instanceOf(Number.class)))
+                .andExpect(jsonPath("$[0].title", instanceOf(String.class)));
+    }
+
+
 }
