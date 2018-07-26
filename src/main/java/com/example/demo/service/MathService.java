@@ -27,6 +27,20 @@ public class MathService {
         return createSumString(integerList, result);
     }
 
+    public String calculateVolume(Integer x, Integer y, Integer z) {
+        int volume = x * y * z;
+        return "The volume of a " + x + "x" + y + "x" + z + " rectangle is " + volume;
+    }
+
+    public String calculateArea(Shape shape) {
+        if (shape.getType().equalsIgnoreCase("circle")) {
+            return calculateCircleArea(shape);
+        } else if (shape.getType().equalsIgnoreCase("rectangle")) {
+            return calculateRectangleArea(shape);
+        }
+        return "Invalid type";
+    }
+
     private String add(Integer x, Integer y) {
         return createCalculateString(x, "+", y, x + y);
     }
@@ -58,21 +72,6 @@ public class MathService {
         resultString.append(" = ");
         resultString.append(result);
         return resultString.toString();
-    }
-
-
-    public String calculateVolume(Integer x, Integer y, Integer z) {
-        int volume = x * y * z;
-        return "The volume of a " + x + "x" + y + "x" + z + " rectangle is " + volume;
-    }
-
-    public String calculateArea(Shape shape) {
-        if (shape.getType().equalsIgnoreCase("circle")) {
-            return calculateCircleArea(shape);
-        } else if (shape.getType().equalsIgnoreCase("rectangle")) {
-            return calculateRectangleArea(shape);
-        }
-        return "Invalid type";
     }
 
     private String calculateRectangleArea(Shape shape) {

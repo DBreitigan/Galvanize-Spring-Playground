@@ -42,6 +42,8 @@ public class FlightControllerTest {
 
     @Test
     public void testGetFlights() throws Exception {
+
+
         this.mvc.perform(get("/flights/")
                 .accept(APPLICATION_JSON_UTF8)
                 .contentType(APPLICATION_JSON_UTF8))
