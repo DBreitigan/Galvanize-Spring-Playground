@@ -114,7 +114,7 @@ public class LessonsControllerTest {
 
         Date date1 = new SimpleDateFormat( "yyyyMMdd" ).parse( "20100520" );
         Date date2 = new SimpleDateFormat( "yyyyMMdd" ).parse( "20200520" );
-        
+
         MockHttpServletRequestBuilder request = get("/lessons/between?date1={date1}&date2={date2}", date1, date2)
                 .contentType(MediaType.APPLICATION_JSON);
 
