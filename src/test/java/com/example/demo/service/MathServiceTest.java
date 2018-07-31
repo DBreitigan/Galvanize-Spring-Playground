@@ -1,7 +1,6 @@
 package com.example.demo.service;
 
 import com.example.demo.model.Shape;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

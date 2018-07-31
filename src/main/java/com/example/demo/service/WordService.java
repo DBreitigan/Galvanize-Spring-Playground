@@ -18,32 +18,29 @@ public class WordService {
     }
 
     public Map<String, Integer> wordCounter(String sentence) {
-        Map<String, Integer> wordcount = new HashMap<>();
-
+        Map<String, Integer> wordCount = new HashMap<>();
         String[] wordList = sentence.replaceAll("[^a-zA-Z ]", "").split(" ");
 
         for(String str: wordList){
             if(!config.getWords().getSkip().contains(str)) {
                 if(config.getCaseSensitive()){
-                    if(wordcount.containsKey(str)){
-                        Integer count = wordcount.get(str) + 1;
-                        wordcount.put(str, count);
+                    if(wordCount.containsKey(str)){
+                        Integer count = wordCount.get(str) + 1;
+                        wordCount.put(str, count);
                     } else {
-                        wordcount.put(str, 1);
+                        wordCount.put(str, 1);
                     }
                 } else {
-                    if(wordcount.containsKey(str.toLowerCase())){
-                        Integer count = wordcount.get(str.toLowerCase()) + 1;
-                        wordcount.put(str.toLowerCase(), count);
+                    if(wordCount.containsKey(str.toLowerCase())){
+                        Integer count = wordCount.get(str.toLowerCase()) + 1;
+                        wordCount.put(str.toLowerCase(), count);
                     } else {
-                        wordcount.put(str.toLowerCase(), 1);
+                        wordCount.put(str.toLowerCase(), 1);
                     }
                 }
-
             }
         }
 
-
-        return wordcount;
+        return wordCount;
     }
 }

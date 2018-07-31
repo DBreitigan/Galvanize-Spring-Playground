@@ -7,17 +7,15 @@ import java.util.List;
 
 @Service
 public class MathService {
-
-
     public String calculate(String operation, Integer x, Integer y) {
         if (operation.equalsIgnoreCase("add")) {
-            return add(x, y);
+            return createCalculateString(x, "+", y, x + y);
         } else if (operation.equalsIgnoreCase("multiply")) {
-            return multiply(x, y);
+            return createCalculateString(x, "*", y, x * y);
         } else if (operation.equalsIgnoreCase("subtract")) {
-            return subtract(x, y);
+            return createCalculateString(x, "-", y, x - y);
         } else if (operation.equalsIgnoreCase("divide")) {
-            return divide(x, y);
+            return createCalculateString(x, "/", y, x / y);
         }
         return "Invalid operation";
     }
@@ -39,22 +37,6 @@ public class MathService {
             return calculateRectangleArea(shape);
         }
         return "Invalid type";
-    }
-
-    private String add(Integer x, Integer y) {
-        return createCalculateString(x, "+", y, x + y);
-    }
-
-    private String multiply(Integer x, Integer y) {
-        return createCalculateString(x, "*", y, x * y);
-    }
-
-    private String subtract(Integer x, Integer y) {
-        return createCalculateString(x, "-", y, x - y);
-    }
-
-    private String divide(Integer x, Integer y) {
-        return createCalculateString(x, "/", y, x / y);
     }
 
     private String createCalculateString(Integer x, String operation, Integer y, Integer result) {
