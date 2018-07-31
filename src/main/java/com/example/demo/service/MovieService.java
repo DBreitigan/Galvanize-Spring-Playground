@@ -12,6 +12,10 @@ public class MovieService {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
+    public RestTemplate getRestTemplate() {
+        return restTemplate;
+    }
+
     public List<Movie> getMovies(String query) {
         MovieSearch responseEntity = this.restTemplate.getForObject("http://www.omdbapi.com/?s={query}&apikey={apiKey}", MovieSearch.class, query, "e1e62e71");
         return responseEntity != null ? responseEntity.getSearch() : null;
