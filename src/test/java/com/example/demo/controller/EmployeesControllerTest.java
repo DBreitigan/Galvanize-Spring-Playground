@@ -24,7 +24,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @WebMvcTest(EmployeesController.class)
 @Import(SecurityConfig.class)
 public class EmployeesControllerTest {
-
     @MockBean
     EmployeeRepository employeeRepository;
 
