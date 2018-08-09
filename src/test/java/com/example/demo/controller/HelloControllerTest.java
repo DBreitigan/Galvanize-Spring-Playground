@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
+import com.example.demo.database.EmployeeRepository;
 import com.example.demo.model.Shape;
+import com.example.demo.service.EmployeeDetailsService;
 import com.example.demo.service.MathService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,6 +30,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(HelloController.class)
 @AutoConfigureMockMvc(secure=false)
 public class HelloControllerTest {
+
+    @MockBean
+    EmployeeRepository employeeRepository;
+
+    @MockBean
+    EmployeeDetailsService employeeDetailsService;
 
     @Autowired
     MockMvc mvc;

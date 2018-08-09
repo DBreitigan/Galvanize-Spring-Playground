@@ -1,10 +1,13 @@
 package com.example.demo.controller;
 
+import com.example.demo.database.EmployeeRepository;
+import com.example.demo.service.EmployeeDetailsService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -18,6 +21,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(FlightController.class)
 @AutoConfigureMockMvc(secure=false)
 public class FlightControllerTest {
+
+    @MockBean
+    EmployeeRepository employeeRepository;
+
+    @MockBean
+    EmployeeDetailsService employeeDetailsService;
 
     @Autowired
     MockMvc mvc;

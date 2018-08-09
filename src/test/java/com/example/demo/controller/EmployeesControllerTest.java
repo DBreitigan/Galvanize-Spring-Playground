@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.database.EmployeeRepository;
 import com.example.demo.security.SecurityConfig;
+import com.example.demo.service.EmployeeDetailsService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ public class EmployeesControllerTest {
     @MockBean
     EmployeeRepository employeeRepository;
 
+    @MockBean
+    EmployeeDetailsService employeeDetailsService;
+
     @Autowired
     MockMvc mvc;
 
@@ -50,7 +54,7 @@ public class EmployeesControllerTest {
 
     @Test
     public void AdminEmployeesWithAdmin() throws Exception {
-        RequestBuilder request = get("/admin/employees").with(user("user").roles("ADMIN"));
+        RequestBuilder request = get("/admin/employees").with(user("user").roles("MANAGER"));
         mvc.perform(request).andExpect(status().isOk());
     }
 
